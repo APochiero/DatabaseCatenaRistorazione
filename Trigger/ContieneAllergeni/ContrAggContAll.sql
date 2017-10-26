@@ -1,0 +1,13 @@
+DROP TRIGGER IF EXISTS PositivoAllerg2;
+DELIMITER $$
+CREATE TRIGGER PositivoAllerg2
+BEFORE UPDATE ON ContieneAllergeni
+FOR EACH ROW
+
+BEGIN
+IF NEW.Quantita_gr<0 THEN 
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'Inserisci una quantità positiva';
+END IF;
+END $$
+DELIMITER ;

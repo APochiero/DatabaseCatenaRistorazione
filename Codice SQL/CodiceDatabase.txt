@@ -1,0 +1,371 @@
+Creazione LuogoProduzione
+CREATE TABLE `ristorante`.`luogo` (
+  `Cap` VARCHAR(5) NOT NULL,
+  `Nome` VARCHAR(20) NULL,
+  `Provincia` VARCHAR(20) NULL,
+   `Regione` VARCHAR(20) NULL,
+  `Nazione` VARCHAR(20) NULL,
+  PRIMARY KEY (`Cap`));
+INSERT INTO `ristorante`.`luogo` (`Cap`, `Nome`, `Provincia`, `Regione`, `Nazione`) VALUES ('50134', 'Rifredi', 'Firenze', 'Toscana', 'Italia');
+INSERT INTO `ristorante`.`luogo` (`Cap`, `Nome`, `Provincia`, `Regione`, `Nazione`) VALUES ('22100', 'Como', 'Como', 'Lombardia', 'Italia');
+INSERT INTO `ristorante`.`luogo` (`Cap`, `Nome`, `Provincia`, `Regione`, `Nazione`) VALUES ('89817', 'Briatico', 'Vibo Valentia', 'Calabria', 'Italia');
+INSERT INTO `ristorante`.`luogo` (`Cap`, `Nome`, `Provincia`, `Regione`, `Nazione`) VALUES ('00062', 'Bracciano', 'Roma', 'Lazio', 'Italia');
+INSERT INTO `ristorante`.`luogo` (`Cap`, `Nome`, `Provincia`, `Regione`, `Nazione`) VALUES ('41049', 'Sassuolo', 'Modena', 'Emilia Romagna', 'Italia');
+INSERT INTO `ristorante`.`luogo` (`Cap`, `Nome`, `Provincia`, `Regione`, `Nazione`) VALUES ('36012', 'Asiago', 'Vicenza', 'Veneto', 'Italia');
+INSERT INTO `ristorante`.`luogo` (`Cap`, `Nome`, `Provincia`, `Regione`, `Nazione`) VALUES ('72100', 'Brindisi', 'Brindisi', 'Puglia', 'Italia');
+INSERT INTO `ristorante`.`luogo` (`Cap`, `Nome`, `Provincia`, `Regione`, `Nazione`) VALUES ('42000', 'Saint-Étienne', 'Loira', 'Rodano-Alpi', 'Francia');
+INSERT INTO `ristorante`.`luogo` (`Cap`, `Nome`, `Provincia`, `Regione`, `Nazione`) VALUES ('40210', 'Düsseldorf', 'Düsseldorf', 'Vestfalia', 'Germania');
+INSERT INTO `ristorante`.`luogo` (`Cap`, `Nome`, `Provincia`, `Regione`, `Nazione`) VALUES ('98520', 'Aberdeen', 'Aberdeen', 'Washington', 'Stati Uniti');
+INSERT INTO `ristorante`.`luogo` (`Cap`, `Nome`, `Provincia`, `Regione`, `Nazione`) VALUES ('20121', 'Milano', 'Milano', 'Lombardia', 'Italia');
+
+Creazione Ingrediente
+
+CREATE TABLE Ingrediente (
+
+IdIngrediente INT auto_increment NOT NULL,
+Nome VARCHAR(20) NOT NULL,
+Genere VARCHAR (20),
+TipoProduzione VARCHAR(20),
+LuogoProduzione VARCHAR(5),
+PRIMARY KEY (IdIngrediente),
+CONSTRAINT FK_LuogoProd  Foreign key (LuogoProduzione)
+References luogo (Cap)
+ON UPDATE CASCADE
+ON DELETE SET NULL
+);
+INSERT INTO `ristorante`.`ingrediente` (`Nome`, `Genere`, `TipoProduzione`, `LuogoProduzione`) VALUES ('Olio d\'Oliva', 'Condimento', 'Biologica', '22100');
+INSERT INTO `ristorante`.`ingrediente` (`Nome`, `Genere`, `TipoProduzione`, `LuogoProduzione`) VALUES ('Zucchine', 'Verdura', 'Intensiva', '41049');
+INSERT INTO `ristorante`.`ingrediente` (`Nome`, `Genere`, `TipoProduzione`, `LuogoProduzione`) VALUES ('Carne Di Manzo', 'Carne', 'Eterogenea', '47016');
+INSERT INTO `ristorante`.`ingrediente` (`Nome`, `Genere`, `TipoProduzione`, `LuogoProduzione`) VALUES ('Cioccolato', 'Dolce', 'Intensiva', '42000');
+INSERT INTO `ristorante`.`ingrediente` (`Nome`, `Genere`, `TipoProduzione`, `LuogoProduzione`) VALUES ('Trota Salmonata', 'Pesce', 'Iperintensiva ', '00062');
+INSERT INTO `ristorante`.`ingrediente` (`Nome`, `Genere`, `TipoProduzione`, `LuogoProduzione`) VALUES ('Emmental', 'Formaggio', 'Biologica', '36012');
+INSERT INTO `ristorante`.`ingrediente` (`Nome`, `Genere`, `TipoProduzione`, `LuogoProduzione`) VALUES ('Pomodori', 'Verdura', 'Estensiva', '41049');
+INSERT INTO `ristorante`.`ingrediente` (`Nome`, `Genere`, `TipoProduzione`, `LuogoProduzione`) VALUES ('Mela', 'Frutta', 'Biologica', '98520');
+INSERT INTO `ristorante`.`ingrediente` (`Nome`, `Genere`, `TipoProduzione`, `LuogoProduzione`) VALUES ('Pera', 'Frutta', 'Biologica', '98520');
+INSERT INTO `ristorante`.`ingrediente` (`Nome`, `Genere`, `TipoProduzione`, `LuogoProduzione`) VALUES ('Farina', 'Cerale', 'Intensiva', '50134');
+INSERT INTO `ristorante`.`ingrediente` (`Nome`, `Genere`, `TipoProduzione`, `LuogoProduzione`) VALUES ('Carne di Vitello', 'Carne', 'Estensiva', '42000');
+INSERT INTO `ristorante`.`ingrediente` (`Nome`, `Genere`, `TipoProduzione`, `LuogoProduzione`) VALUES ('Rigatoni', 'Pasta', 'Intensiva', '36012');
+
+Creazione Allergene
+CREATE TABLE Allergene (
+NomeSostanza varchar(50) PRIMARY KEY
+);
+INSERT INTO `ristorante`.`allergene` (`NomeSostanza`) VALUES ('ABC');
+INSERT INTO `ristorante`.`allergene` (`NomeSostanza`) VALUES ('02ADF');
+INSERT INTO `ristorante`.`allergene` (`NomeSostanza`) VALUES ('UE32');
+INSERT INTO `ristorante`.`allergene` (`NomeSostanza`) VALUES ('OOO11');
+INSERT INTO `ristorante`.`allergene` (`NomeSostanza`) VALUES ('MM22');
+INSERT INTO `ristorante`.`allergene` (`NomeSostanza`) VALUES ('LAQ33');
+INSERT INTO `ristorante`.`allergene` (`NomeSostanza`) VALUES ('VLM25');
+INSERT INTO `ristorante`.`allergene` (`NomeSostanza`) VALUES ('III');
+INSERT INTO `ristorante`.`allergene` (`NomeSostanza`) VALUES ('VAPE');
+INSERT INTO `ristorante`.`allergene` (`NomeSostanza`) VALUES ('AK47');
+
+Creazione ContieneAllergeni
+CREATE TABLE ContieneAllergeni (
+IdIngrediente INT,
+NomeSostanza VARCHAR(50),
+Quantita_gr INT NOT NULL,
+PRIMARY KEY(IdIngrediente, NomeSostanza),
+
+constraint FK_Ingredienti Foreign KEY (IdIngrediente)
+references  Ingrediente (IdIngrediente)
+ON Update CASCADE
+ON DELETE NO ACTION,
+
+constraint FK_Allergeni Foreign KEY (NomeSostanza)
+references Allergene (NomeSostanza)
+ON UPDATE cascade
+ON DELETE NO ACTION
+);
+INSERT INTO `ristorante`.`contieneallergeni` (`IdIngrediente`, `NomeSostanza`, `Quantita_gr`) VALUES ('2', 'AK47', '11');
+INSERT INTO `ristorante`.`contieneallergeni` (`IdIngrediente`, `NomeSostanza`, `Quantita_gr`) VALUES ('4', 'ABC', '50');
+INSERT INTO `ristorante`.`contieneallergeni` (`IdIngrediente`, `NomeSostanza`, `Quantita_gr`) VALUES ('4', 'LAQ33', '10');
+INSERT INTO `ristorante`.`contieneallergeni` (`IdIngrediente`, `NomeSostanza`, `Quantita_gr`) VALUES ('5', 'UE32', '25');
+INSERT INTO `ristorante`.`contieneallergeni` (`IdIngrediente`, `NomeSostanza`, `Quantita_gr`) VALUES ('6', 'VLM25', '15');
+INSERT INTO `ristorante`.`contieneallergeni` (`IdIngrediente`, `NomeSostanza`, `Quantita_gr`) VALUES ('6', 'AK47', '7');
+INSERT INTO `ristorante`.`contieneallergeni` (`IdIngrediente`, `NomeSostanza`, `Quantita_gr`) VALUES ('6', 'OOO11', '24');
+INSERT INTO `ristorante`.`contieneallergeni` (`IdIngrediente`, `NomeSostanza`, `Quantita_gr`) VALUES ('10', 'AK47', '33');
+INSERT INTO `ristorante`.`contieneallergeni` (`IdIngrediente`, `NomeSostanza`, `Quantita_gr`) VALUES ('10', '02ADF', '10');
+INSERT INTO `ristorante`.`contieneallergeni` (`IdIngrediente`, `NomeSostanza`, `Quantita_gr`) VALUES ('11', ' LAQ33', '10');
+DELIMITER $$
+CREATE TRIGGER PositivoAllerg1
+BEFORE INSERT ON ContieneAllergeni
+FOR EACH ROW
+BEGIN
+IF NEW.Quantita_gr<0 THEN 
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'Inserisci una quantità positiva';
+END IF;
+END $$
+
+CREATE TRIGGER PositivoAllerg2
+BEFORE UPDATE ON ContieneAllergeni
+FOR EACH ROW
+
+BEGIN
+IF NEW.Quantita_gr<0 THEN 
+SIGNAL SQLSTATE '45000'
+SET MESSAGE_TEXT = 'Inserisci una quantità positiva';
+END IF;
+END $$
+DELIMITER ;
+
+Creazione Produttore
+CREATE TABLE Produttore(
+IdProduttore VARCHAR(10),
+Nome VARCHAR(20) NOT NULL,
+Cognome VARCHAR(20) NOT NULL,
+Telefono VARCHAR(10) NOT NULL,
+DataInizioAttività Date,
+PRIMARY KEY (IdProduttore)
+);
+INSERT INTO `ristorante`.`produttore` (`IdProduttore`, `Nome`, `Cognome`, `Telefono`, `DataInizioAttività`) VALUES ('101020', 'Mario', 'Rossi', '3337856981', '1970-05-05');
+INSERT INTO `ristorante`.`produttore` (`IdProduttore`, `Nome`, `Cognome`, `Telefono`, `DataInizioAttività`) VALUES ('ABC123', 'Francesco', 'Amadori', '3481120350', '1951-02-04');
+INSERT INTO `ristorante`.`produttore` (`IdProduttore`, `Nome`, `Cognome`, `Telefono`, `DataInizioAttività`) VALUES ('1AAABB', 'Sergio', 'Poretti', '3391011123', '1976-04-11');
+INSERT INTO `ristorante`.`produttore` (`IdProduttore`, `Nome`, `Cognome`, `Telefono`, `DataInizioAttività`) VALUES ('AEIOUY', 'Tonio', 'Cartonio', '3350001112', '2003-09-15');
+INSERT INTO `ristorante`.`produttore` (`IdProduttore`, `Nome`, `Cognome`, `Telefono`, `DataInizioAttività`) VALUES ('010101', 'Mario', 'Desideri', '3381145012', '1963-07-25');
+INSERT INTO `ristorante`.`produttore` (`IdProduttore`, `Nome`, `Cognome`, `Telefono`, `DataInizioAttività`) VALUES ('EA9999', 'Marcelo', 'Rodriguez', '3448800111', '1985-01-11');
+INSERT INTO `ristorante`.`produttore` (`IdProduttore`, `Nome`, `Cognome`, `Telefono`, `DataInizioAttività`) VALUES ('Tr0N00', 'Tirion', 'Lannister', '0001112223', '2011-05-28');
+INSERT INTO `ristorante`.`produttore` (`IdProduttore`, `Nome`, `Cognome`, `Telefono`, `DataInizioAttività`) VALUES ('AA1240', 'John ', 'Smith', '4509977880', '1980-07-30');
+INSERT INTO `ristorante`.`produttore` (`IdProduttore`, `Nome`, `Cognome`, `Telefono`, `DataInizioAttività`) VALUES ('892424', 'Eusebio', 'Di Francesco', '3507788990', '2005-05-17');
+INSERT INTO `ristorante`.`produttore` (`IdProduttore`, `Nome`, `Cognome`, `Telefono`, `DataInizioAttività`) VALUES ('ET0011', 'Giovanni', 'Bauli', '3901120351', '1995-04-27');
+
+Creazione Lotto
+CREATE TABLE Lotto(
+CodiceLotto VARCHAR (10),
+DataProduzione date NOT NULL,
+LuogoProduzione VARCHAR(5),
+IdProduttore VARCHAR(10)  ,
+PRIMARY KEY(CodiceLotto), 
+CONSTRAINT FK_LuogoProdLotto  FOREIGN KEY (LuogoProduzione) 
+references luogo (Cap)
+ON UPDATE CASCADE
+ON DELETE SET NULL,
+CONSTRAINT FK_IdProd
+FOREIGN KEY (IdProduttore) references produttore (IdProduttore)
+ON UPDATE CASCADE
+ON DELETE SET NULL
+);
+INSERT INTO `ristorante`.`lotto` (`CodiceLotto`, `DataProduzione`, `LuogoProduzione`, `IdProduttore`) VALUES ('000001', '2015-06-13', '36012', '1AAABB');
+INSERT INTO `ristorante`.`lotto` (`CodiceLotto`, `DataProduzione`, `LuogoProduzione`, `IdProduttore`) VALUES ('000002', '2015-07-25', '41049', '1AAABB');
+INSERT INTO `ristorante`.`lotto` (`CodiceLotto`, `DataProduzione`, `LuogoProduzione`, `IdProduttore`) VALUES ('000003', '2015-07-15', '98520', 'AA1240');
+INSERT INTO `ristorante`.`lotto` (`CodiceLotto`, `DataProduzione`, `LuogoProduzione`, `IdProduttore`) VALUES ('000004', '2012-09-27', '47016', 'ABC123');
+INSERT INTO `ristorante`.`lotto` (`CodiceLotto`, `DataProduzione`, `LuogoProduzione`, `IdProduttore`) VALUES ('000005', '2014-07-21', '89817', '892424');
+INSERT INTO `ristorante`.`lotto` (`CodiceLotto`, `DataProduzione`, `LuogoProduzione`, `IdProduttore`) VALUES ('000006', '2015-03-25', '41049', 'AEIOUY');
+INSERT INTO `ristorante`.`lotto` (`CodiceLotto`, `DataProduzione`, `LuogoProduzione`, `IdProduttore`) VALUES ('000007', '2015-08-10', '00062', '101020');
+INSERT INTO `ristorante`.`lotto` (`CodiceLotto`, `DataProduzione`, `LuogoProduzione`, `IdProduttore`) VALUES ('000008', '2015-06-14', '50134', '010101');
+INSERT INTO `ristorante`.`lotto` (`CodiceLotto`, `DataProduzione`, `LuogoProduzione`, `IdProduttore`) VALUES ('000009', '2013-11-17', '40210', 'ET0011');
+INSERT INTO `ristorante`.`lotto` (`CodiceLotto`, `DataProduzione`, `LuogoProduzione`, `IdProduttore`) VALUES ('000010', '2014-01-31', '42000', '1AAABB');
+
+
+Creazione Sede
+CREATE TABLE Sede(
+IdSede Varchar(10),
+Nome VARCHAR (50) NOT NULL,
+Location Varchar(5),
+Via  VARCHAR(50) NOT NULL,
+Civico INT NOT NULL,
+OraApertura TIME ,
+OraChiusura TIME ,
+GiornoChiusura INT,
+Telefono VARCHAR(10) NOT NULL,
+SitoInternet VARCHAR(50) ,
+PRIMARY KEY (IdSede),
+
+constraint FK_LuogoUbicazione
+FOREIGN KEY (Location) references luogo (Cap)
+ON UPDATE CASCADE
+ON DELETE SET NULL
+);
+
+INSERT INTO `ristorante`.`sede` (`IdSede`,`Nome`,`Location`, `Via`, `Civico`, `OraApertura`, `OraChiusura`, `GiornoChiusura`, `Telefono`, `SitoInternet`) VALUES ('PiPPo', 'Da Pippo', '20121', 'Dei Pini', '35', '12:30', '01:30', '2', '0283204519', 'www.ristopippo.it');
+INSERT INTO `ristorante`.`sede` (`IdSede`,`Nome`, `Location`, `Via`, `Civico`, `OraApertura`, `OraChiusura`, `Telefono`, `SitoInternet`) VALUES ('Ezio', 'Buongustaio', '50134', 'Cavur', '11', '18:30', '02:30', '0577902078', 'www.ilbuongustaio.it');
+INSERT INTO `ristorante`.`sede` (`IdSede`,`Nome`, `Location`, `Via`, `Civico`, `OraApertura`, `OraChiusura`, `Telefono`, `SitoInternet`) VALUES ('Mimmo', 'Da Mimmo', '89817', 'Garibaldi', '45', '19:00', '01:30', '0982457811', 'www.wmimmo.it');
+INSERT INTO `ristorante`.`sede` (`IdSede`,`Nome`, `Location`, `Via`, `Civico`, `OraApertura`, `OraChiusura`, `GiornoChiusura`, `Telefono`, `SitoInternet`) VALUES ('SPQR', 'A Lazio', '00062', 'Del Popolo', '01', '12:00', '00:00', '4', '0658789022', 'www.lafamobona.it');
+INSERT INTO `ristorante`.`sede` (`IdSede`, `Nome`, `Location`, `Via`, `Civico`, `OraApertura`, `OraChiusura`, `GiornoChiusura`, `Telefono`, `SitoInternet`) VALUES ('AAAA', 'Le Ristorant', '42000', 'Les chateauxx', '21', '13:00', '03:00', '1', '0444112233', 'www.leristorant.fr');
+INSERT INTO `ristorante`.`sede` (`IdSede`, `Nome`, `Location`, `Via`, `Civico`, `OraApertura`, `OraChiusura`, `Telefono`, `SitoInternet`) VALUES ('BBBCD', 'La Tavola Calda', '47016', 'Del Ceppo', '47', '18:30', '01:30', '0699451122', 'www.tavolacalda.it');
+INSERT INTO `ristorante`.`sede` (`IdSede`, `Nome`, `Location`, `Via`, `Civico`, `OraApertura`, `OraChiusura`, `GiornoChiusura`, `Telefono`, `SitoInternet`) VALUES ('9010S', 'La Taverna Del Riccio', '50134', 'Pesciatina', '3', '13:00', '00:00', '3', '0577699011', 'www.tavernadelricco.it');
+INSERT INTO `ristorante`.`sede` (`IdSede`, `Nome`, `Location`, `Via`, `Civico`, `OraApertura`, `OraChiusura`, `GiornoChiusura`, `Telefono`, `SitoInternet`) VALUES ('A4444', 'FastFood', '98520', 'GreenPark', '7', '14:30', '23:30', '4', '1234567890', 'www.fastfood.com');
+INSERT INTO `ristorante`.`sede` (`IdSede`, `Nome`, `Location`, `Via`, `Civico`, `OraApertura`, `OraChiusura`, `Telefono`, `SitoInternet`) VALUES ('McDon1', 'McDonald', '40210', 'Doncheshen', '2', '06:30', '03:30', '2301248920', 'www.mcdonald.de');
+INSERT INTO `ristorante`.`sede` (`IdSede`, `Nome`, `Location`, `Via`, `Civico`, `OraApertura`, `OraChiusura`, `Telefono`, `SitoInternet`) VALUES ('McDon2', 'McDonald', '50134', 'Del gatto', '10', '06:30', '03:30', '4780369771', 'www.mcdonald.it');
+INSERT INTO `ristorante`.`sede` (`IdSede`, `Nome`, `Location`, `Via`, `Civico`, `OraApertura`, `OraChiusura`, `Telefono`, `SitoInternet`) VALUES ('Burgher1', 'BurgherKing', '00062', 'Giraffa Blu', '126', '08:30', '23:30', '1122334455', 'www.burgherking.it');
+
+
+Creazione Magazzino	
+
+CREATE TABLE Magazzino(
+IdMagazzino VARCHAR (10),
+Nome VARCHAR (20),
+Capienza int NOT NULL,
+IdSede VARCHAR(10),
+PRIMARY KEY (IdMagazzino),
+
+CONSTRAINT FK_SedeMagazz
+FOREIGN KEY (IdSede) REFERENCES Sede (IdSede)
+ON UPDATE CASCADE
+ON DELETE SET NULL
+);
+DELIMITER $$
+CREATE TRIGGER ControllaMagazzino1
+BEFORE INSERT ON Magazzino FOR EACH ROW
+BEGIN
+
+IF NEW.Capienza <0 THEN 
+SIGNAL SQLSTATE '45000'
+SET message_text='Quantità inserita Negativa Inserire una positiva';
+END IF;
+
+END $$
+
+CREATE TRIGGER ControllaMagazzino2
+BEFORE UPDATE ON Magazzino FOR EACH ROW
+BEGIN
+
+IF NEW.Capienza <0 THEN 
+SIGNAL SQLSTATE '45000'
+SET message_text='Quantità Aggiornata Negativa Aggiornare con una positiva';
+END IF;
+
+END $$
+DELIMITER ;
+INSERT INTO `ristorante`.`magazzino` (`IdMagazzino`, `Nome`, `Capienza`, `IdSede`) VALUES ('0001', 'First', '200', 'McDon1');
+INSERT INTO `ristorante`.`magazzino` (`IdMagazzino`, `Nome`, `Capienza`, `IdSede`) VALUES ('0002', 'Second', '50', 'McDon1');
+INSERT INTO `ristorante`.`magazzino` (`IdMagazzino`, `Nome`, `Capienza`, `IdSede`) VALUES ('0003', 'Third', '25', 'McDon1');
+INSERT INTO `ristorante`.`magazzino` (`IdMagazzino`, `Nome`, `Capienza`, `IdSede`) VALUES ('0004', 'Primo', '300', '9010S');
+INSERT INTO `ristorante`.`magazzino` (`IdMagazzino`, `Nome`, `Capienza`, `IdSede`) VALUES ('0005', 'Alpha', '250', 'A4444');
+INSERT INTO `ristorante`.`magazzino` (`IdMagazzino`, `Nome`, `Capienza`, `IdSede`) VALUES ('0006', 'Le Prime', '158', 'AAAA');
+INSERT INTO `ristorante`.`magazzino` (`IdMagazzino`, `Nome`, `Capienza`, `IdSede`) VALUES ('0007', 'Primo', '140', 'BBBCD');
+INSERT INTO `ristorante`.`magazzino` (`IdMagazzino`, `Nome`, `Capienza`, `IdSede`) VALUES ('0008', 'Riserva', '50', 'BBBCD');
+INSERT INTO `ristorante`.`magazzino` (`IdMagazzino`, `Nome`, `Capienza`, `IdSede`) VALUES ('0009', 'Il solo', '500', 'Burgher1');
+INSERT INTO `ristorante`.`magazzino` (`IdMagazzino`, `Nome`, `Capienza`, `IdSede`) VALUES ('0010', 'Main', '135', 'Ezio');
+INSERT INTO `ristorante`.`magazzino` (`IdMagazzino`, `Nome`, `Capienza`, `IdSede`) VALUES ('0011', 'Prim', '243', 'McDon2');
+INSERT INTO `ristorante`.`magazzino` (`IdMagazzino`, `Nome`, `Capienza`, `IdSede`) VALUES ('0012', 'Sec', '147', 'McDon2');
+INSERT INTO `ristorante`.`magazzino` (`IdMagazzino`, `Nome`, `Capienza`, `IdSede`) VALUES ('0013', '1', '100', 'Mimmo');
+INSERT INTO `ristorante`.`magazzino` (`IdMagazzino`, `Nome`, `Capienza`, `IdSede`) VALUES ('0014', 'Il primo', '142', 'PiPPo');
+INSERT INTO `ristorante`.`magazzino` (`IdMagazzino`, `Nome`, `Capienza`, `IdSede`) VALUES ('0015', 'il Sec', '75', 'PiPPo');
+INSERT INTO `ristorante`.`magazzino` (`IdMagazzino`, `Nome`, `Capienza`, `IdSede`) VALUES ('0016', 'Er Primo', '216', 'SPQR');
+INSERT INTO `ristorante`.`magazzino` (`IdMagazzino`, `Nome`, `Capienza`, `IdSede`) VALUES ('0017', 'Er Secondo', '54', 'SPQR');
+
+CREAZIONE SCAFFALE
+CREATE TABLE Scaffale(
+IdScaffale VarChar(20),
+QuantitaMax int NOT NULL,
+IdMagazzino VarChar(10),
+PRIMARY KEY (IdScaffale),
+CONSTRAINT FK_Magazzino	
+FOREIGN KEY (IdMagazzino) REFERENCES magazzino(IdMagazzino)
+ON UPDATE CASCADE
+ON DELETE SET NULL
+);
+
+INSERT INTO `ristorante`.`scaffale` (`IdScaffale`, `QuantitaMax`, `IdMagazzino`) VALUES ('AAAAA', '50', '0001');
+INSERT INTO `ristorante`.`scaffale` (`IdScaffale`, `QuantitaMax`, `IdMagazzino`) VALUES ('AAAAB', '50', '0001');
+INSERT INTO `ristorante`.`scaffale` (`IdScaffale`, `QuantitaMax`, `IdMagazzino`) VALUES ('AAAAC', '100', '0001');
+INSERT INTO `ristorante`.`scaffale` (`IdScaffale`, `QuantitaMax`, `IdMagazzino`) VALUES ('AAAAD', '50', '0002');
+INSERT INTO `ristorante`.`scaffale` (`IdScaffale`, `QuantitaMax`, `IdMagazzino`) VALUES ('AAAAE', '25', '0003');
+INSERT INTO `ristorante`.`scaffale` (`IdScaffale`, `QuantitaMax`, `IdMagazzino`) VALUES ('BBBBA', '100', '0004');
+INSERT INTO `ristorante`.`scaffale` (`IdScaffale`, `QuantitaMax`, `IdMagazzino`) VALUES ('BBBBB', '150', '0004');
+INSERT INTO `ristorante`.`scaffale` (`IdScaffale`, `QuantitaMax`, `IdMagazzino`) VALUES ('BBBBC', '50', '0004');
+INSERT INTO `ristorante`.`scaffale` (`IdScaffale`, `QuantitaMax`, `IdMagazzino`) VALUES ('CCCA', '100', '0005');
+INSERT INTO `ristorante`.`scaffale` (`IdScaffale`, `QuantitaMax`, `IdMagazzino`) VALUES ('CCCB', '150', '0005');
+INSERT INTO `ristorante`.`scaffale` (`IdScaffale`, `QuantitaMax`, `IdMagazzino`) VALUES ('DDDA', '100', '0009');
+INSERT INTO `ristorante`.`scaffale` (`IdScaffale`, `QuantitaMax`, `IdMagazzino`) VALUES ('DDDB', '100', '0009');
+INSERT INTO `ristorante`.`scaffale` (`IdScaffale`, `QuantitaMax`, `IdMagazzino`) VALUES ('DDDC', '100', '0009');
+INSERT INTO `ristorante`.`scaffale` (`IdScaffale`, `QuantitaMax`, `IdMagazzino`) VALUES ('DDDD', '100', '0009');
+INSERT INTO `ristorante`.`scaffale` (`IdScaffale`, `QuantitaMax`, `IdMagazzino`) VALUES ('DDDE', '100', '0009');
+DELIMITER $$
+CREATE TRIGGER ControllaScaffale1
+BEFORE INSERT ON Scaffale FOR EACH ROW
+BEGIN
+IF NEW.QuantitaMax<0 THEN 
+SIGNAL SQLSTATE '45000'
+SET message_text='Quantità inserita Negativa Inserire una positiva';
+END IF;
+END $$
+
+CREATE TRIGGER ControllaScaffale2
+BEFORE UPDATE ON Scaffale FOR EACH ROW
+BEGIN
+IF NEW.QuantitaMax <0 THEN 
+SIGNAL SQLSTATE '45000'
+SET message_text='Quantità Aggiornata Negativa Aggiornare con una positiva';
+END IF;
+END $$
+DELIMITER ;
+
+
+
+
+
+
+Creazione Confezione
+
+CREATE TABLE Confezione(
+IdConfezione VarChar(20),
+Peso_gr int NOT NULL,
+Prezzo_euro int NOT NULL,
+DataAcquisto date NOT NULL,
+DataArrivo date NOT NULL,
+DataScadenza date NOT NULL,
+Stato VARCHAR(10) DEFAULT ‘Completa’,
+Aspetto INT DEFAULT 6 ,
+IdScaffale VARCHAR (20),
+IdMagazzino VARCHAR(10),
+
+PRIMARY KEY (IdConfezione),
+CONSTRAINT FK_MagazzinoConfez	
+FOREIGN KEY (IdMagazzino) REFERENCES magazzino(IdMagazzino)
+ON UPDATE CASCADE
+ON DELETE SET NULL,
+CONSTRAINT FK_ScaffaleConfez	
+FOREIGN KEY (IdScaffale) REFERENCES Scaffale(IdScaffale)
+ON UPDATE CASCADE
+ON DELETE SET NULL
+);
+
+DELIMITER $$
+CREATE TRIGGER ControllaConfezione
+BEFORE INSERT ON Confezione FOR EACH ROW
+
+BEGIN
+SET NEW.Stato='Completa';
+IF (NEW.Aspetto<0 OR NEW.ASPETTO>10) THEN
+SIGNAL SQLSTATE '45000'
+SET message_text='VALORE ASPETTO NON COMPRESO FRA 1 E 10';
+END IF;
+
+IF (NEW.Peso_gr <0  OR NEW.Prezzo_euro<0) THEN
+SIGNAL SQLSTATE '45000'
+SET message_text='VALORI PESO O PREZZO INFERIORI A 0';
+END IF;
+
+IF (NEW.DataAcquisto >New.DataArrivo) THEN
+SIGNAL SQLSTATE '45000'
+SET message_text='La Data di Acquisto non può essere maggiore di quella di arrivo';
+END IF;
+
+IF (NEW.DataAcquisto >New.DataScadenza) THEN
+SIGNAL SQLSTATE '45000'
+SET message_text='La Data di Acquisto non può essere maggiore di quella di Scadenza';
+END IF;
+
+IF (NEW.DataArrivo >New.DataScadenza) THEN
+SIGNAL SQLSTATE '45000'
+SET message_text='La Data di Arrivo non può essere maggiore di quella di Scadenza';
+END IF;
+
+
+SET NEW.IdMagazzino=(
+						SELECT S.IdMagazzino
+						FROM Scaffale S
+						Where S.IdScaffale=NEW.IdScaffale);
+END $$
+
+DELIMITER ;
+
+
+
+
+
+
